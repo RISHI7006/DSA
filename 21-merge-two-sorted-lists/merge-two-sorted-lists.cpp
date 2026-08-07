@@ -25,6 +25,7 @@ public:
             tail = tail->next;
         }
 
+        // Attach whichever list has leftover nodes
         tail->next = list1 ? list1 : list2;
 
         return dummy.next;
