@@ -5,8 +5,8 @@
 #         self.next = next
 
 class Solution:
-    def mergeTwoLists(self, list1, list2):
-        dummy = ListNode(0)
+    def mergeTwoLists(self, list1: 'Optional[ListNode]', list2: 'Optional[ListNode]') -> 'Optional[ListNode]':
+        dummy = ListNode()
         tail = dummy
 
         while list1 and list2:
@@ -18,9 +18,7 @@ class Solution:
                 list2 = list2.next
             tail = tail.next
 
-        if list1:
-            tail.next = list1
-        else:
-            tail.next = list2
+        # Attach whichever list has leftover nodes (already sorted)
+        tail.next = list1 if list1 else list2
 
         return dummy.next
