@@ -1,8 +1,15 @@
 class Solution:
-    def missingNumber(self, nums: List[int]) -> int:
-        n=len(nums)
-        sum1=n*(n+1)//2
-        sum2=sum(nums)
-        return sum1-sum2
+    def missingNumber(self, nums: list[int]) -> int:
+        result = 0
+        
+        # XOR all numbers from 0 to n
+        for i in range(len(nums) + 1):
+            result ^= i
+        
+        # XOR all numbers in the array
+        for num in nums:
+            result ^= num
+        
+        return result
 
         
