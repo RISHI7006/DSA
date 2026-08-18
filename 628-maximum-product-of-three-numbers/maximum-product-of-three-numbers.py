@@ -1,13 +1,32 @@
 class Solution:
     def maximumProduct(self, nums: list[int]) -> int:
-        nums.sort()
-        n = len(nums)
+        # Track three largest and two smallest
+        max1 = max2 = max3 = float('-inf')
+        min1 = min2 = float('inf')
 
-        # Case 1: three largest numbers
-        product1 = nums[n - 1] * nums[n - 2] * nums[n - 3]
+        for num in nums:
+            # Update three largest
+            if num > max1:
+                max3 = max2
+                max2 = max1
+                max1 = num
+            elif num > max2:
+                max3 = max2
+                max2 = num
+            elif num > max3:
+                max3 = num
 
-        # Case 2: two smallest (most negative) + one largest
-        # Two negatives multiply to a large positive
-        product2 = nums[0] * nums[1] * nums[n - 1]
+            # Update two smallest
+            if num < min1:
+                min2 = min1
+                min1 = num
+            elif num < min2:
+                min2 = num
+
+        # Case 1: three largest
+        product1 = max1 * max2 * max3
+
+        # Case 2: two smallest + one largest
+        product2 = min1 * min2 * max1
 
         return max(product1, product2)
