@@ -6,7 +6,7 @@ class Solution:
 
         for s in strs:
             # Sort the characters to create a canonical key
-            key = ''.join(sorted(s))
+            key = tuple(sorted(s))
             groups[key].append(s)
 
         return list(groups.values())
