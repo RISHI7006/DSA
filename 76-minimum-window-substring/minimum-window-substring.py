@@ -1,46 +1,40 @@
-from collections import Counter
-
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if not s or not t:
+        if not s or not t or len(s) < len(t):
             return ""
 
-        # Count characters needed from t
-        need = Counter(t)
-        required = len(need)  # number of unique characters we need to satisfy
+        # Use array instead of dict/Counter for faster access
+        need = [0] * 128
+        for char in t:
+            need[ord(char)] += 1
 
-        # Sliding window pointers
+        required = sum(1 for count in need if count > 0)
+
+        window = [0] * 128
+        formed = 0
         left = 0
-        formed = 0  # number of unique characters currently satisfied
-        window_counts = {}
+        min_len = float('inf')
+        min_left = 0
 
-        # Result tracking: (window length, left, right)
-        result = float('inf'), None, None
+        s_len = len(s)
 
-        right = 0
-        while right < len(s):
-            char = s[right]
-            window_counts[char] = window_counts.get(char, 0) + 1
+        for right in range(s_len):
+            char_code = ord(s[right])
+            window[char_code] += 1
 
-            # Check if this character's frequency matches the requirement
-            if char in need and window_counts[char] == need[char]:
+            if need[char_code] > 0 and window[char_code] == need[char_code]:
                 formed += 1
 
-            # Try to contract the window from the left while it's still valid
-            while left <= right and formed == required:
-                char = s[left]
+            while formed == required:
+                if right - left + 1 < min_len:
+                    min_len = right - left + 1
+                    min_left = left
 
-                # Update result if this window is smaller
-                if right - left + 1 < result[0]:
-                    result = (right - left + 1, left, right)
-
-                # Remove the leftmost character from the window
-                window_counts[char] -= 1
-                if char in need and window_counts[char] < need[char]:
+                left_char_code = ord(s[left])
+                window[left_char_code] -= 1
+                if need[left_char_code] > 0 and window[left_char_code] < need[left_char_code]:
                     formed -= 1
 
                 left += 1
 
-            right += 1
-
-        return "" if result[0] == float('inf') else s[result[1]:result[2] + 1]
+        return "" if min_len == float('inf') else s[min_left:min_left + min_len]
