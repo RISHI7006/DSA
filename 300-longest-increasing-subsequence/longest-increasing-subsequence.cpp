@@ -1,19 +1,17 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        vector<int> tails; // tails[i] = smallest possible tail value of an increasing subsequence of length i+1
+        int n = nums.size();
+        vector<int> dp(n, 1);
         
-        for (int num : nums) {
-            // Binary search for the leftmost position where num can replace/extend
-            auto it = lower_bound(tails.begin(), tails.end(), num);
-            
-            if (it == tails.end()) {
-                tails.push_back(num); // num extends the longest subsequence found so far
-            } else {
-                *it = num; // num replaces an element to keep tails as small as possible
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    dp[i] = max(dp[i], dp[j] + 1);
+                }
             }
         }
         
-        return tails.size();
+        return *max_element(dp.begin(), dp.end());
     }
 };
