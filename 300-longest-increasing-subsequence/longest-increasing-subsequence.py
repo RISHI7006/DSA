@@ -1,11 +1,20 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        n = len(nums)
-        dp = [1] * n  # dp[i] = length of LIS ending at index i
+        tails = []  # tails[i] = smallest possible tail value of an increasing subsequence of length i+1
         
-        for i in range(1, n):
-            for j in range(i):
-                if nums[j] < nums[i]:
-                    dp[i] = max(dp[i], dp[j] + 1)
+        for num in nums:
+            # Binary search for the leftmost position where num can replace/extend
+            lo, hi = 0, len(tails)
+            while lo < hi:
+                mid = (lo + hi) // 2
+                if tails[mid] < num:
+                    lo = mid + 1
+                else:
+                    hi = mid
+            
+            if lo == len(tails):
+                tails.append(num)  # num extends the longest subsequence found so far
+            else:
+                tails[lo] = num    # num replaces an element to keep tails as small as possible
         
-        return max(dp)
+        return len(tails)
