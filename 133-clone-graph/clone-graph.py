@@ -1,18 +1,32 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
         if not node:
             return None
         
-        visited = {node: Node(node.val)}
-        queue = deque([node])
+        # Maps original node -> cloned node
+        visited = {}
         
-        while queue:
-            current = queue.popleft()
-            for neighbor in current.neighbors:
-                if neighbor not in visited:
-                    visited[neighbor] = Node(neighbor.val)
-                    queue.append(neighbor)
-                # Attach the cloned neighbor to the cloned current node
-                visited[current].neighbors.append(visited[neighbor])
+        def dfs(original):
+            # If we've already cloned this node, return the clone (avoids infinite loop)
+            if original in visited:
+                return visited[original]
+            
+            # Create clone and register it BEFORE recursing into neighbors
+            clone = Node(original.val)
+            visited[original] = clone
+            
+            # Recursively clone all neighbors and attach them
+            for neighbor in original.neighbors:
+                clone.neighbors.append(dfs(neighbor))
+            
+            return clone
         
-        return visited[node]
+        return dfs(node)
