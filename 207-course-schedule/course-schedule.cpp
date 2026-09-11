@@ -1,33 +1,35 @@
 class Solution {
 public:
+    vector<vector<int>> graph;
+    vector<int> state; // 0 = unvisited, 1 = visiting, 2 = processed
+    
+    bool hasCycle(int course) {
+        if (state[course] == 1) return true;  // back-edge -> cycle
+        if (state[course] == 2) return false; // already safe
+        
+        state[course] = 1;
+        for (int next : graph[course]) {
+            if (hasCycle(next)) return true;
+        }
+        state[course] = 2;
+        
+        return false;
+    }
+    
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> graph(numCourses);
-        vector<int> inDegree(numCourses, 0);
+        graph.assign(numCourses, {});
+        state.assign(numCourses, 0);
         
         for (auto& p : prerequisites) {
-            int course = p[0], prereq = p[1];
-            graph[prereq].push_back(course);
-            inDegree[course]++;
+            graph[p[1]].push_back(p[0]);
         }
         
-        queue<int> q;
         for (int i = 0; i < numCourses; i++) {
-            if (inDegree[i] == 0) q.push(i);
-        }
-        
-        int completed = 0;
-        while (!q.empty()) {
-            int course = q.front();
-            q.pop();
-            completed++;
-            
-            for (int next : graph[course]) {
-                if (--inDegree[next] == 0) {
-                    q.push(next);
-                }
+            if (state[i] == 0 && hasCycle(i)) {
+                return false;
             }
         }
         
-        return completed == numCourses;
+        return true;
     }
 };
