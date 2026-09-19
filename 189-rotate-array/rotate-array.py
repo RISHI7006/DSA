@@ -1,24 +1,17 @@
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
         n = len(nums)
-        k %= n
-        if k == 0:
-            return
+        k %= n  # handle k >= n (rotating by n is a no-op)
         
-        count = 0  # number of elements moved so far
-        start = 0
+        def reverse(left, right):
+            while left < right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
         
-        while count < n:
-            current = start
-            prev = nums[start]
-            
-            while True:
-                next_idx = (current + k) % n
-                nums[next_idx], prev = prev, nums[next_idx]
-                current = next_idx
-                count += 1
-                
-                if current == start:
-                    break
-            
-            start += 1
+        # Step 1: reverse the entire array
+        reverse(0, n - 1)
+        # Step 2: reverse the first k elements
+        reverse(0, k - 1)
+        # Step 3: reverse the remaining n-k elements
+        reverse(k, n - 1)
