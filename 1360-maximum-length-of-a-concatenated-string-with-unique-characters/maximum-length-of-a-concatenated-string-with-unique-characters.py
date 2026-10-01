@@ -4,37 +4,27 @@ class Solution:
 
         for word in arr:
             mask = 0
-            valid = True
-
-            for ch in word:
-                bit = 1 << (ord(ch) - ord('a'))
-
+            for c in word:
+                bit = 1 << (ord(c) - 97)
                 if mask & bit:
-                    valid = False
                     break
-
                 mask |= bit
-
-            if valid:
+            else:
                 masks.append((mask, len(word)))
 
-        def backtrack(index, mask, length):
-            nonlocal ans
+        ans = 0
+        stack = [(0, 0, 0)]
+
+        while stack:
+            i, mask, length = stack.pop()
 
             if length > ans:
                 ans = length
 
-            for i in range(index, len(masks)):
-                new_mask, word_len = masks[i]
+            for j in range(i, len(masks)):
+                m, l = masks[j]
 
-                if mask & new_mask == 0:
-                    backtrack(
-                        i + 1,
-                        mask | new_mask,
-                        length + word_len
-                    )
-
-        ans = 0
-        backtrack(0, 0, 0)
+                if not (mask & m):
+                    stack.append((j + 1, mask | m, length + l))
 
         return ans
