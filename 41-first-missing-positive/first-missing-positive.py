@@ -1,0 +1,15 @@
+class Solution:
+    def firstMissingPositive(self, nums: list[int]) -> int:
+        n = len(nums)
+
+        for i in range(n):
+            # Keep swapping until nums[i] is in its correct slot or is useless
+            while 1 <= nums[i] <= n and nums[nums[i] - 1] != nums[i]:
+                j = nums[i] - 1
+                nums[i], nums[j] = nums[j], nums[i]
+
+        for i in range(n):
+            if nums[i] != i + 1:
+                return i + 1
+
+        return n + 1
