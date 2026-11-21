@@ -38,4 +38,4 @@
 
 ---
 
-**My Solution:** [55-Jump-Game.cpp](./55-Jump-Game.cpp)
+**My Solution:** [55-Jump-Game.java](./55-Jump-Game.java)
