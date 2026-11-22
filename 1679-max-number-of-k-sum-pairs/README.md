@@ -44,4 +44,4 @@ There are no more pairs that sum up to 6, hence a total of 1 operation.</pre>
 
 ---
 
-**My Solution:** [1679-Max-Number-of-K-Sum-Pairs.cpp](./1679-Max-Number-of-K-Sum-Pairs.cpp)
+**My Solution:** [1679-Max-Number-of-K-Sum-Pairs.java](./1679-Max-Number-of-K-Sum-Pairs.java)
