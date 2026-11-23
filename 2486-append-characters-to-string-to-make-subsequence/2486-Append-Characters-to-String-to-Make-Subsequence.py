@@ -1,9 +1,8 @@
-class Solution {
-    public int appendCharacters(String s, String t) {
-        int j = 0, m = t.length();
-        for (int i = 0; i < s.length() && j < m; i++) {
-            if (s.charAt(i) == t.charAt(j)) j++;
-        }
-        return m - j;
-    }
-}
+class Solution:
+    def appendCharacters(self, s: str, t: str) -> int:
+        j = 0
+        m = len(t)
+        for ch in s:
+            if j < m and ch == t[j]:
+                j += 1
+        return m - j
