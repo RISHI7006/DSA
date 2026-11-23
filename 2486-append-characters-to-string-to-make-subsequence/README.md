@@ -52,4 +52,4 @@ It can be shown that appending any 4 characters to the end of s will never make 
 
 ---
 
-**My Solution:** [2486-Append-Characters-to-String-to-Make-Subsequence.java](./2486-Append-Characters-to-String-to-Make-Subsequence.java)
+**My Solution:** [2486-Append-Characters-to-String-to-Make-Subsequence.cpp](./2486-Append-Characters-to-String-to-Make-Subsequence.cpp)
