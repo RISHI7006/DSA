@@ -54,4 +54,4 @@
 
 ---
 
-**My Solution:** [1071-Greatest-Common-Divisor-of-Strings.cpp](./1071-Greatest-Common-Divisor-of-Strings.cpp)
+**My Solution:** [1071-Greatest-Common-Divisor-of-Strings.py](./1071-Greatest-Common-Divisor-of-Strings.py)
