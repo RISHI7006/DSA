@@ -55,4 +55,4 @@ merging them into one sorted linked list:
 
 ---
 
-**My Solution:** [23-Merge-k-Sorted-Lists.java](./23-Merge-k-Sorted-Lists.java)
+**My Solution:** [23-Merge-k-Sorted-Lists.py](./23-Merge-k-Sorted-Lists.py)
