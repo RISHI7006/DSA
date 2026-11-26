@@ -73,4 +73,4 @@
 
 ---
 
-**My Solution:** [4123-Minimum-Cost-to-Delete-Array.cpp](./4123-Minimum-Cost-to-Delete-Array.cpp)
+**My Solution:** [4123-Minimum-Cost-to-Delete-Array.py](./4123-Minimum-Cost-to-Delete-Array.py)
