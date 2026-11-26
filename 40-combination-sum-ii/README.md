@@ -49,4 +49,4 @@
 
 ---
 
-**My Solution:** [40-Combination-Sum-II.cpp](./40-Combination-Sum-II.cpp)
+**My Solution:** [40-Combination-Sum-II.java](./40-Combination-Sum-II.java)
